@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b1020">
+  <meta name="description" content="PyTrack — śledź czas nauki Pythona.">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+  <title>PyTrack — nauka Pythona</title>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="./" aria-label="PyTrack — strona główna">
+        <span class="brand-mark">Py</span>
+        <span>PyTrack<span class="brand-dot">.</span></span>
+      </a>
+      <button id="installButton" class="icon-button hidden" type="button" aria-label="Zainstaluj aplikację" title="Dodaj do ekranu początkowego">↓</button>
+    </header>
+
+    <main>
+      <section class="hero">
+        <p class="eyebrow">TWÓJ ROZWÓJ, DZIEŃ PO DNIU</p>
+        <h1>Małe kroki.<br><span>Duży progres.</span></h1>
+        <p class="subheading">Skup się na nauce. PyTrack zajmie się resztą.</p>
+      </section>
+
+      <section class="timer-card panel" aria-labelledby="timerHeading">
+        <div class="section-topline">
+          <div>
+            <p class="eyebrow">AKTUALNA SESJA</p>
+            <h2 id="timerHeading">Czas na Pythona</h2>
+          </div>
+          <span id="statusPill" class="status-pill">Gotowy</span>
+        </div>
+        <label class="sr-only" for="topicInput">Temat sesji</label>
+        <input id="topicInput" class="topic-input" maxlength="90" placeholder="Czego dziś się uczysz? (np. listy w Pythonie)" autocomplete="off">
+        <div class="timer-display" id="timerDisplay" aria-live="off">00:00:00</div>
+        <p id="timerHint" class="timer-hint">Każde 15 minut ma znaczenie.</p>
+        <div class="timer-actions">
+          <button id="startButton" class="button button-primary" type="button">▶ Rozpocznij naukę</button>
+          <button id="pauseButton" class="button button-secondary hidden" type="button">Ⅱ Wstrzymaj</button>
+          <button id="finishButton" class="button button-quiet hidden" type="button">Zakończ sesję</button>
+        </div>
+        <p id="timerMessage" class="message" role="status"></p>
+      </section>
+
+      <section class="stats-grid" aria-label="Statystyki nauki">
+        <article class="stat-card panel">
+          <span class="stat-icon cyan">◷</span>
+          <p class="stat-label">Dzisiaj</p>
+          <strong id="todayStat">0 min</strong>
+          <span class="stat-foot">czas nauki</span>
+        </article>
+        <article class="stat-card panel">
+          <span class="stat-icon purple">↗</span>
+          <p class="stat-label">Ostatnie 7 dni</p>
+          <strong id="weekStat">0 min</strong>
+          <span class="stat-foot">czas nauki</span>
+        </article>
+        <article class="stat-card panel">
+          <span class="stat-icon green">◎</span>
+          <p class="stat-label">Wszystkie sesje</p>
+          <strong id="sessionsStat">0</strong>
+          <span class="stat-foot">ukończonych</span>
+        </article>
+      </section>
+
+      <section class="panel heatmap-panel">
+        <div class="section-topline">
+          <div>
+            <p class="eyebrow">KONSEKWENCJA</p>
+            <h2>Twoja aktywność</h2>
+          </div>
+          <span id="heatmapTotal" class="muted-small">Ostatnie 12 tygodni</span>
+        </div>
+        <div id="heatmap" class="heatmap" aria-label="Kalendarz aktywności"></div>
+        <div class="heatmap-legend"><span>Mniej</span><i class="level-0"></i><i class="level-1"></i><i class="level-2"></i><i class="level-3"></i><i class="level-4"></i><span>Więcej</span></div>
+      </section>
+
+      <section class="panel history-panel">
+        <div class="section-topline">
+          <div>
+            <p class="eyebrow">TWÓJ DZIENNIK</p>
+            <h2>Ostatnie sesje</h2>
+          </div>
+          <button id="exportButton" class="text-button" type="button">Eksportuj dane ↗</button>
+        </div>
+        <div id="historyList" class="history-list"></div>
+        <p id="emptyHistory" class="empty-state">Nie ma jeszcze sesji. Zrób dziś pierwszy krok 🚀</p>
+        <div class="data-actions">
+          <label class="import-label" for="importInput">Importuj kopię zapasową</label>
+          <input id="importInput" type="file" accept="application/json,.json" hidden>
+          <button id="clearButton" class="text-button danger-text" type="button">Wyczyść historię</button>
+        </div>
+      </section>
+      <p class="privacy-note"><span>◆</span> Twoje dane pozostają w tej przeglądarce na tym urządzeniu. Regularnie eksportuj kopię zapasową.</p>
+    </main>
+    <footer>PYTRACK <span>·</span> TWÓJ POSTĘP MA ZNACZENIE</footer>
+  </div>
+  <script src="./app.js"></script>
+</body>
+</html>
