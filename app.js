@@ -129,31 +129,83 @@
     els.week.textContent = formatDuration(weekSeconds);
     els.sessions.textContent = String(sessions.length);
   }
-  function renderHeatmap() {
-    els.heatmap.replaceChildren();
-    const end = new Date(); end.setHours(0,0,0,0);
-    const start = new Date(end); start.setDate(start.getDate()-83);
-    start.setDate(start.getDate()-start.getDay());
-    const byDay = new Map();
-    for (const s of sessions) {
-      const key = dateKey(s.endedAt);
-      byDay.set(key, (byDay.get(key)||0) + s.duration);
-    }
-    let totalDays = 0;
-    for (let i=0; i<84; i++) {
-      const d = new Date(start); d.setDate(start.getDate()+i);
-      const key = dateKey(d);
-      const seconds = byDay.get(key)||0;
-      if (seconds > 0) totalDays++;
-      const level = seconds === 0 ? 0 : seconds < 1800 ? 1 : seconds < 3600 ? 2 : seconds < 7200 ? 3 : 4;
-      const cell = document.createElement("div");
-      cell.className = `heat-cell level-${level}`;
-      cell.title = `${d.toLocaleDateString("pl-PL")}: ${formatDuration(seconds)}`;
-      cell.setAttribute("aria-label", cell.title);
-      els.heatmap.appendChild(cell);
-    }
-    els.heatmapTotal.textContent = `${totalDays} dni z nauką`;
+  
+let heatmapMonth = new Date();
+heatmapMonth.setDate(1);
+
+function renderHeatmap() {
+  const heatmap = $("heatmap");
+  const monthLabel = $("heatmapMonthLabel");
+  const totalLabel = $("heatmapTotal");
+
+  if (!heatmap || !monthLabel || !totalLabel) return;
+
+  heatmap.replaceChildren();
+
+  const year = heatmapMonth.getFullYear();
+  const month = heatmapMonth.getMonth();
+
+  monthLabel.textContent = heatmapMonth.toLocaleDateString("pl-PL", {
+    month: "long",
+    year: "numeric"
+  });
+
+  // Sumujemy czas wszystkich sesji według dnia zakończenia.
+  const byDay = new Map();
+
+  for (const s of sessions) {
+    const key = dateKey(s.endedAt);
+    byDay.set(key, (byDay.get(key) || 0) + s.duration);
   }
+
+  const firstDay = new Date(year, month, 1);
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+  // Poniedziałek = 0, wtorek = 1, ..., niedziela = 6.
+  const offset = (firstDay.getDay() + 6) % 7;
+
+  // Puste miejsca przed pierwszym dniem miesiąca.
+  for (let i = 0; i < offset; i++) {
+    const empty = document.createElement("div");
+    empty.className = "heat-empty";
+    heatmap.appendChild(empty);
+  }
+
+  let totalDays = 0;
+
+  for (let day = 1; day <= daysInMonth; day++) {
+    const date = new Date(year, month, day);
+    const key = dateKey(date);
+    const seconds = byDay.get(key) || 0;
+
+    if (seconds > 0) totalDays++;
+
+    // Poziomy intensywności. Poziom 4: ponad 3 godziny.
+    let level = 0;
+
+    if (seconds > 0 && seconds < 1800) {
+      level = 1;
+    } else if (seconds < 3600 && seconds >= 1800) {
+      level = 2;
+    } else if (seconds <= 10800 && seconds >= 3600) {
+      level = 3;
+    } else if (seconds > 10800) {
+      level = 4;
+    }
+
+    const cell = document.createElement("button");
+    cell.type = "button";
+    cell.className = `heat-cell level-${level}`;
+    cell.textContent = day;
+    cell.title = `${date.toLocaleDateString("pl-PL")}: ${formatDuration(seconds)}`;
+    cell.setAttribute("aria-label", cell.title);
+
+    heatmap.appendChild(cell);
+  }
+
+  totalLabel.textContent = `${totalDays} ${totalDays === 1 ? "dzień" : "dni"} z nauką`;
+}
+
   function renderHistory() {
     els.history.replaceChildren();
     els.empty.classList.toggle("hidden", sessions.length > 0);
