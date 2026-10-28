@@ -62,13 +62,98 @@ h2 { font-size: 1.12rem; margin: 0; letter-spacing: -.025em; }
 .stat-foot { display:block; color:#65708c; font-size:.7rem; margin-top:5px; }
 .heatmap-panel,.history-panel { padding:clamp(19px,4vw,28px); margin-top:14px; }
 .muted-small { color:var(--muted); font-size:.72rem; }
-.heatmap { display:grid; grid-auto-flow:column; grid-template-rows:repeat(7, 1fr); grid-auto-columns:minmax(7px,1fr); gap:5px; margin-top:22px; overflow-x:auto; padding-bottom:4px; }
-.heat-cell { width:100%; aspect-ratio:1; border-radius:3px; background:#202941; border:0; padding:0; min-width:7px; }
-.level-0 { background:#202941 !important; }
-.level-1 { background:#15515a !important; }
-.level-2 { background:#187f88 !important; }
-.level-3 { background:#27b9bd !important; }
-.level-4 { background:#79f1e8 !important; }
+
+.heatmap-header {
+  display: grid;
+  grid-template-columns: 40px 1fr 40px;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.heatmap-header h3 {
+  margin: 0;
+  text-align: center;
+  text-transform: capitalize;
+  font-size: 1rem;
+}
+
+.heatmap-header button {
+  min-height: 36px;
+  border: 1px solid #303b54;
+  border-radius: 10px;
+  background: #202941;
+  color: #f1f5ff;
+  font-size: 1.6rem;
+  cursor: pointer;
+}
+
+.heatmap-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 6px;
+  margin-bottom: 8px;
+  text-align: center;
+  color: #9ba8c2;
+  font-size: 0.75rem;
+}
+
+.heatmap {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.heat-cell,
+.heat-empty {
+  width: 100%;
+  min-width: 0;
+  aspect-ratio: 1;
+  box-sizing: border-box;
+  border-radius: 7px;
+}
+
+.heat-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 1px solid transparent;
+  color: #aab4ca;
+  font-size: 0.85rem;
+  cursor: default;
+}
+
+.level-0 {
+  background: #202941;
+}
+
+.level-1 {
+  background: #15515a;
+  color: #ffffff;
+}
+
+.level-2 {
+  background: #187f88;
+  color: #ffffff;
+}
+
+.level-3 {
+  background: #27b9bd;
+  color: #10252d;
+}
+
+.level-4 {
+  background: #f05aa6;
+  color: #ffffff;
+}
+
+#heatmapTotal {
+  margin-top: 14px;
+  color: #aab4ca;
+  font-size: 0.85rem;
+}
+
 .heatmap-legend { display:flex; align-items:center; justify-content:flex-end; gap:5px; margin-top:12px; color:var(--muted); font-size:.68rem; }
 .heatmap-legend i { display:inline-block; width:11px; height:11px; border-radius:3px; }
 .text-button { border:0; background:none; color:var(--cyan); font-size:.76rem; font-weight:700; padding:7px 0; }
