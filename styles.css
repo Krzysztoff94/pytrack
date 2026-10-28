@@ -188,3 +188,129 @@ footer span { color:var(--cyan); padding:0 5px; }
   .muted-small { max-width:100px; text-align:right; line-height:1.4; }
   .data-actions { align-items:flex-start; flex-direction:column; gap:6px; }
 }
+
+/* PyTrack — układ kalendarza miesięcznego */
+.heatmap-panel .heatmap-header {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr) 40px;
+  align-items: center;
+  gap: 8px;
+  margin: 20px 0 16px;
+}
+
+.heatmap-panel .heatmap-header h3 {
+  margin: 0;
+  text-align: center;
+  text-transform: capitalize;
+  font-size: 1rem;
+  min-width: 0;
+}
+
+.heatmap-panel .heatmap-header button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 1px solid #303b54;
+  border-radius: 10px;
+  background: #202941;
+  color: #f1f5ff;
+  font-size: 1.6rem;
+  cursor: pointer;
+}
+
+.heatmap-panel .heatmap-weekdays,
+.heatmap-panel .heatmap {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  grid-auto-flow: row;
+  grid-auto-columns: auto;
+  grid-auto-rows: auto;
+  grid-template-rows: none;
+  gap: 6px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.heatmap-panel .heatmap-weekdays {
+  margin-bottom: 8px;
+  text-align: center;
+  color: #9ba8c2;
+  font-size: 0.75rem;
+}
+
+.heatmap-panel .heat-cell,
+.heatmap-panel .heat-empty {
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  aspect-ratio: 1;
+  box-sizing: border-box;
+  border-radius: 7px;
+}
+
+.heatmap-panel .heat-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 1px solid transparent;
+  font-size: clamp(0.7rem, 2.5vw, 0.9rem);
+  cursor: default;
+}
+
+.heatmap-panel .level-0 {
+  background: #202941;
+  color: #aab4ca;
+}
+
+.heatmap-panel .level-1 {
+  background: #15515a;
+  color: #ffffff;
+}
+
+.heatmap-panel .level-2 {
+  background: #187f88;
+  color: #ffffff;
+}
+
+.heatmap-panel .level-3 {
+  background: #27b9bd;
+  color: #10252d;
+}
+
+.heatmap-panel .level-4 {
+  background: #f05aa6;
+  color: #ffffff;
+}
+
+.heatmap-panel .heatmap-legend {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+
+.heatmap-panel .heatmap-legend i {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 380px) {
+  .heatmap-panel .heatmap,
+  .heatmap-panel .heatmap-weekdays {
+    gap: 4px;
+  }
+
+  .heatmap-panel .heat-cell,
+  .heatmap-panel .heat-empty {
+    border-radius: 5px;
+  }
+}
