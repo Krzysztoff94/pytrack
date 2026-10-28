@@ -227,6 +227,17 @@ function renderHeatmap() {
     }
   }
   function renderAll() { renderTimer(); renderStats(); renderHeatmap(); renderHistory(); }
+  
+  $("prevMonthBtn").addEventListener("click", () => {
+    heatmapMonth.setMonth(heatmapMonth.getMonth() - 1);
+    renderHeatmap();
+  });
+
+  $("nextMonthBtn").addEventListener("click", () => {
+    heatmapMonth.setMonth(heatmapMonth.getMonth() + 1);
+    renderHeatmap();
+  });
+
   els.start.addEventListener("click", startSession);
   els.pause.addEventListener("click", togglePause);
   els.finish.addEventListener("click", () => {
