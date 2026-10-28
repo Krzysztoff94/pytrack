@@ -68,17 +68,51 @@
         </article>
       </section>
 
-      <section class="panel heatmap-panel">
-        <div class="section-topline">
-          <div>
-            <p class="eyebrow">KONSEKWENCJA</p>
-            <h2>Twoja aktywność</h2>
-          </div>
-          <span id="heatmapTotal" class="muted-small">Ostatnie 12 tygodni</span>
-        </div>
-        <div id="heatmap" class="heatmap" aria-label="Kalendarz aktywności"></div>
-        <div class="heatmap-legend"><span>Mniej</span><i class="level-0"></i><i class="level-1"></i><i class="level-2"></i><i class="level-3"></i><i class="level-4"></i><span>Więcej</span></div>
-      </section>
+      
+<section class="panel heatmap-panel">
+  <div class="section-topline">
+    <div>
+      <p class="eyebrow">KONSEKWENCJA</p>
+      <h2>Twoja aktywność</h2>
+    </div>
+    <span id="heatmapTotal" class="muted-small">0 dni z nauką</span>
+  </div>
+
+  <div class="heatmap-header">
+    <button id="prevMonthBtn" type="button" aria-label="Poprzedni miesiąc">
+      &#8249;
+    </button>
+
+    <h3 id="heatmapMonthLabel">Październik 2026</h3>
+
+    <button id="nextMonthBtn" type="button" aria-label="Następny miesiąc">
+      &#8250;
+    </button>
+  </div>
+
+  <div class="heatmap-weekdays">
+    <span>Pn</span>
+    <span>Wt</span>
+    <span>Śr</span>
+    <span>Cz</span>
+    <span>Pt</span>
+    <span>Sb</span>
+    <span>Nd</span>
+  </div>
+
+  <div id="heatmap" class="heatmap" aria-label="Kalendarz aktywności"></div>
+
+  <div class="heatmap-legend">
+    <span>Mniej</span>
+    <i class="level-0"></i>
+    <i class="level-1"></i>
+    <i class="level-2"></i>
+    <i class="level-3"></i>
+    <i class="level-4"></i>
+    <span>Więcej</span>
+  </div>
+</section>
+
 
       <section class="panel history-panel">
         <div class="section-topline">
