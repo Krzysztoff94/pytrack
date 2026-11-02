@@ -1,14 +1,15 @@
+
 <!doctype html>
 <html lang="pl">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#0b1020">
-  <meta name="description" content="PyTrack — śledź czas nauki Pythona.">
+  <meta name="description" content="PyTrack — śledź naukę i codzienne cele.">
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" href="./icon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="./styles.css">
-  <title>PyTrack — nauka Pythona</title>
+  <title>PyTrack — Twój rozwój</title>
 </head>
 <body>
   <div class="app-shell">
@@ -17,123 +18,155 @@
         <span class="brand-mark">Py</span>
         <span>PyTrack<span class="brand-dot">.</span></span>
       </a>
-      <button id="installButton" class="icon-button hidden" type="button" aria-label="Zainstaluj aplikację" title="Dodaj do ekranu początkowego">↓</button>
+      <button id="installButton" class="icon-button hidden" type="button" aria-label="Zainstaluj aplikację">↓</button>
     </header>
 
+    <nav class="main-nav" aria-label="Główne zakładki">
+      <button class="nav-tab active" type="button" data-tab="study">🐍 Nauka</button>
+      <button class="nav-tab" type="button" data-tab="daily">✓ Codzienne cele</button>
+    </nav>
+
     <main>
-      <section class="hero">
-        <p class="eyebrow">TWÓJ ROZWÓJ, DZIEŃ PO DNIU</p>
-        <h1>Małe kroki.<br><span>Duży progres.</span></h1>
-        <p class="subheading">Skup się na nauce. PyTrack zajmie się resztą.</p>
-      </section>
+      <section id="studyTab" class="tab-content active">
+        <section class="hero">
+          <p class="eyebrow">TWÓJ ROZWÓJ, DZIEŃ PO DNIU</p>
+          <h1>Małe kroki.<br><span>Duży progres.</span></h1>
+          <p class="subheading">Skup się na nauce. PyTrack zajmie się resztą.</p>
+        </section>
 
-      <section class="timer-card panel" aria-labelledby="timerHeading">
-        <div class="section-topline">
-          <div>
-            <p class="eyebrow">AKTUALNA SESJA</p>
-            <h2 id="timerHeading">Czas na Pythona</h2>
+        <section class="timer-card panel">
+          <div class="section-topline">
+            <div>
+              <p class="eyebrow">AKTUALNA SESJA</p>
+              <h2>Czas na Pythona</h2>
+            </div>
+            <span id="statusPill" class="status-pill">Gotowy</span>
           </div>
-          <span id="statusPill" class="status-pill">Gotowy</span>
-        </div>
-        <label class="sr-only" for="topicInput">Temat sesji</label>
-        <input id="topicInput" class="topic-input" maxlength="90" placeholder="Czego dziś się uczysz? (np. listy w Pythonie)" autocomplete="off">
-        <div class="timer-display" id="timerDisplay" aria-live="off">00:00:00</div>
-        <p id="timerHint" class="timer-hint">Każde 15 minut ma znaczenie.</p>
-        <div class="timer-actions">
-          <button id="startButton" class="button button-primary" type="button">▶ Rozpocznij naukę</button>
-          <button id="pauseButton" class="button button-secondary hidden" type="button">Ⅱ Wstrzymaj</button>
-          <button id="finishButton" class="button button-quiet hidden" type="button">Zakończ sesję</button>
-        </div>
-        <p id="timerMessage" class="message" role="status"></p>
-      </section>
 
-      <section class="stats-grid" aria-label="Statystyki nauki">
-        <article class="stat-card panel">
-          <span class="stat-icon cyan">◷</span>
-          <p class="stat-label">Dzisiaj</p>
-          <strong id="todayStat">0 min</strong>
-          <span class="stat-foot">czas nauki</span>
-        </article>
-        <article class="stat-card panel">
-          <span class="stat-icon purple">↗</span>
-          <p class="stat-label">Ostatnie 7 dni</p>
-          <strong id="weekStat">0 min</strong>
-          <span class="stat-foot">czas nauki</span>
-        </article>
-        <article class="stat-card panel">
-          <span class="stat-icon green">◎</span>
-          <p class="stat-label">Wszystkie sesje</p>
-          <strong id="sessionsStat">0</strong>
-          <span class="stat-foot">ukończonych</span>
-        </article>
-      </section>
+          <label class="sr-only" for="topicInput">Temat sesji</label>
+          <input id="topicInput" class="topic-input" maxlength="90" placeholder="Czego dziś się uczysz? (np. listy w Pythonie)" autocomplete="off">
 
-      
-<section class="panel heatmap-panel">
-  <div class="section-topline">
-    <div>
-      <p class="eyebrow">KONSEKWENCJA</p>
-      <h2>Twoja aktywność</h2>
-    </div>
-    <span id="heatmapTotal" class="muted-small">0 dni z nauką</span>
-  </div>
+          <div id="timerDisplay" class="timer-display">00:00:00</div>
+          <p id="timerHint" class="timer-hint">Każde 15 minut ma znaczenie.</p>
 
-  <div class="heatmap-header">
-    <button id="prevMonthBtn" type="button" aria-label="Poprzedni miesiąc">
-      &#8249;
-    </button>
-
-    <h3 id="heatmapMonthLabel">Październik 2026</h3>
-
-    <button id="nextMonthBtn" type="button" aria-label="Następny miesiąc">
-      &#8250;
-    </button>
-  </div>
-
-  <div class="heatmap-weekdays">
-    <span>Pn</span>
-    <span>Wt</span>
-    <span>Śr</span>
-    <span>Cz</span>
-    <span>Pt</span>
-    <span>Sb</span>
-    <span>Nd</span>
-  </div>
-
-  <div id="heatmap" class="heatmap" aria-label="Kalendarz aktywności"></div>
-
-  <div class="heatmap-legend">
-    <span>Mniej</span>
-    <i class="level-0"></i>
-    <i class="level-1"></i>
-    <i class="level-2"></i>
-    <i class="level-3"></i>
-    <i class="level-4"></i>
-    <span>Więcej</span>
-  </div>
-</section>
-
-
-      <section class="panel history-panel">
-        <div class="section-topline">
-          <div>
-            <p class="eyebrow">TWÓJ DZIENNIK</p>
-            <h2>Ostatnie sesje</h2>
+          <div class="timer-actions">
+            <button id="startButton" class="button button-primary" type="button">▶ Rozpocznij naukę</button>
+            <button id="pauseButton" class="button button-secondary hidden" type="button">Ⅱ Wstrzymaj</button>
+            <button id="finishButton" class="button button-quiet hidden" type="button">Zakończ sesję</button>
           </div>
-          <button id="exportButton" class="text-button" type="button">Eksportuj dane ↗</button>
-        </div>
-        <div id="historyList" class="history-list"></div>
-        <p id="emptyHistory" class="empty-state">Nie ma jeszcze sesji. Zrób dziś pierwszy krok 🚀</p>
-        <div class="data-actions">
-          <label class="import-label" for="importInput">Importuj kopię zapasową</label>
-          <input id="importInput" type="file" accept="application/json,.json" hidden>
-          <button id="clearButton" class="text-button danger-text" type="button">Wyczyść historię</button>
-        </div>
+          <p id="timerMessage" class="message" role="status"></p>
+        </section>
+
+        <section class="stats-grid">
+          <article class="stat-card panel">
+            <span class="stat-icon cyan">◷</span>
+            <p class="stat-label">Dzisiaj</p>
+            <strong id="todayStat">0 min</strong>
+            <span class="stat-foot">czas nauki</span>
+          </article>
+          <article class="stat-card panel">
+            <span class="stat-icon purple">↗</span>
+            <p class="stat-label">Ostatnie 7 dni</p>
+            <strong id="weekStat">0 min</strong>
+            <span class="stat-foot">czas nauki</span>
+          </article>
+          <article class="stat-card panel">
+            <span class="stat-icon green">◎</span>
+            <p class="stat-label">Wszystkie sesje</p>
+            <strong id="sessionsStat">0</strong>
+            <span class="stat-foot">ukończonych</span>
+          </article>
+        </section>
+
+        <section class="panel heatmap-panel">
+          <div class="section-topline">
+            <div>
+              <p class="eyebrow">KONSEKWENCJA</p>
+              <h2>Twoja aktywność</h2>
+            </div>
+            <span id="heatmapTotal" class="muted-small">0 dni z nauką</span>
+          </div>
+
+          <div class="heatmap-header">
+            <button id="prevMonthBtn" type="button" aria-label="Poprzedni miesiąc">‹</button>
+            <h3 id="heatmapMonthLabel"></h3>
+            <button id="nextMonthBtn" type="button" aria-label="Następny miesiąc">›</button>
+          </div>
+
+          <div class="heatmap-weekdays">
+            <span>Pn</span><span>Wt</span><span>Śr</span><span>Cz</span><span>Pt</span><span>Sb</span><span>Nd</span>
+          </div>
+          <div id="heatmap" class="heatmap"></div>
+
+          <div class="heatmap-legend">
+            <span>Mniej</span>
+            <i class="level-0"></i><i class="level-1"></i><i class="level-2"></i><i class="level-3"></i><i class="level-4"></i>
+            <span>Więcej</span>
+          </div>
+        </section>
+
+        <section class="panel history-panel">
+          <div class="section-topline">
+            <div>
+              <p class="eyebrow">TWÓJ DZIENNIK</p>
+              <h2>Ostatnie sesje</h2>
+            </div>
+            <button id="exportButton" class="text-button" type="button">Eksportuj dane ↗</button>
+          </div>
+
+          <div id="historyList" class="history-list"></div>
+          <p id="emptyHistory" class="empty-state">Nie ma jeszcze sesji. Zrób dziś pierwszy krok 🚀</p>
+
+          <div class="data-actions">
+            <label class="import-label" for="importInput">Importuj kopię zapasową</label>
+            <input id="importInput" type="file" accept="application/json,.json" hidden>
+            <button id="clearButton" class="text-button danger-text" type="button">Wyczyść wszystkie dane</button>
+          </div>
+        </section>
       </section>
-      <p class="privacy-note"><span>◆</span> Twoje dane pozostają w tej przeglądarce na tym urządzeniu. Regularnie eksportuj kopię zapasową.</p>
+
+      <section id="dailyTab" class="tab-content">
+        <section class="hero">
+          <p class="eyebrow">CODZIENNA DYSCYPLINA</p>
+          <h1>Małe cele.<br><span>Wielka zmiana.</span></h1>
+          <p class="subheading">Odhaczaj minimum, które chcesz realizować każdego dnia.</p>
+        </section>
+
+        <section class="panel daily-panel">
+          <div class="section-topline">
+            <div>
+              <p class="eyebrow">TWÓJ DZIEŃ</p>
+              <h2 id="dailyDateLabel">Dzisiejsze cele</h2>
+            </div>
+            <span id="dailyProgress" class="daily-progress">0/4</span>
+          </div>
+
+          <div class="progress-track">
+            <div id="dailyProgressBar" class="progress-fill"></div>
+          </div>
+
+          <div id="dailyTasks" class="daily-tasks"></div>
+          <p class="daily-note">Nie musisz mieć idealnego dnia. Liczy się regularność.</p>
+        </section>
+
+        <section class="panel daily-history-panel">
+          <div class="section-topline">
+            <div>
+              <p class="eyebrow">KONSEKWENCJA</p>
+              <h2>Ostatnie 7 dni</h2>
+            </div>
+            <span id="dailyWeekSummary" class="muted-small">0/28 celów</span>
+          </div>
+          <div id="dailyWeek" class="daily-week"></div>
+        </section>
+      </section>
+
+      <p class="privacy-note">◆ Dane pozostają w tej przeglądarce na tym urządzeniu. Pamiętaj o kopii zapasowej.</p>
     </main>
+
     <footer>PYTRACK <span>·</span> TWÓJ POSTĘP MA ZNACZENIE</footer>
   </div>
+
   <script src="./app.js"></script>
 </body>
 </html>
